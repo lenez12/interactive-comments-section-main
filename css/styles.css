@@ -31,7 +31,7 @@
 body {
 	font-family: var(--font-family);
 	font-size: var(--normal-font-size);
-	background-color: var(--very-light-gray-color);
+	background-color: var(--light-grayish-color);
 	margin: 0 auto;
 	position: relative;
 }
@@ -291,7 +291,7 @@ textarea {
 	position: fixed;
 	height: 100vh;
 	width: 100%;
-	background: rgba(0, 0, 0, 0.144);
+	background: rgba(0, 0, 0, 0.734);
 	left: 0;
 	top: 0;
 	display: flex;

@@ -23,57 +23,21 @@
 	</head>
 	<body>
 		<main class="main container">
-			<!-- FORM ADD COMMENT -->
-			<section class="form" id="form-comment-section">
-				<form class="comment_form card grid" name="comment_form">
-					<img
-						src="https://faces-img.xcdn.link/image-lorem-face-2974.jpg"
-						alt=""
-						class="avatar"
-					/>
-					<label for="comment_field" class="hide">Comment</label>
-					<textarea
-						name="comment_field"
-						rows="4"
-						placeholder="Add a comment..."
-					></textarea>
-
-					<button
-						type="submit"
-						name="btnSend"
-						class="btn btn_contained btn_send"
-					>
-						Send
-					</button>
-				</form>
-			</section>
 			<!-- MODAL -->
-			<section class="modal_overlay hide">
-				<article class="modal grid">
-					<h2 class="modal_title">Delete comment</h2>
-					<p class="modal_description">
-						Are you sure you want to delete this comment ? This wil remove the
-						comment and cant't be undone.
-					</p>
-					<footer class="modal_action flex">
-						<button
-							class="btn btn_contained btn_default bg-gray"
-							type="button"
-							name="modal_cancel"
-						>
-							NO, CANCEL
-						</button>
-						<button
-							type="button"
-							name="modal_delete"
-							class="btn btn_contained bg-red btn_default"
-						>
-							YES, DELETE
-						</button>
-					</footer>
-				</article>
-			</section>
 		</main>
+
+		<button
+			onclick="resetData()"
+			type="button"
+			class="btn btn_reset"
+			id="btn-reset"
+		>
+			<i class="fa-solid fa-rotate-right"></i> Reset Data
+		</button>
+		<script src="/js/utils.js"></script>
+		<script src="/js/components.js"></script>
+		<script src="/js/data.js"></script>
+		<script src="/js/controller.js"></script>
 		<script src="/js/main.js"></script>
 	</body>
 </html>

@@ -11,8 +11,8 @@
 			sizes="32x32"
 			href="./images/favicon-32x32.png"
 		/>
-		<link rel="stylesheet" href="css/reset.css" />
-		<link rel="stylesheet" href="css/styles.css" />
+		<link rel="stylesheet" href="../css/reset.css" />
+		<link rel="stylesheet" href="../css/styles.css" />
 
 		<!--  FONT AWESOME -->
 		<link
@@ -126,8 +126,13 @@
 						</article>
 						<div class="comment_replies"></div>
 					</section>
-					<section class="form">
-						<form class="comment_form card grid" name="comment_form">
+
+					<!-- FORM REPLY COMMENT -->
+					<section class="reply_form">
+						<form
+							class="reply_comment_form card grid"
+							name="reply_comment_form"
+						>
 							<img
 								src="https://faces-img.xcdn.link/image-lorem-face-2974.jpg"
 								alt=""
@@ -155,7 +160,7 @@
 
 			<!-- FORM ADD COMMENT -->
 			<section class="form">
-				<form class="comment_form card grid" name="comment_form">
+				<form class="comment_form card grid" id="comment_form">
 					<img
 						src="https://faces-img.xcdn.link/image-lorem-face-2974.jpg"
 						alt=""

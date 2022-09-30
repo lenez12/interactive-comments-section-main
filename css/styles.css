@@ -155,7 +155,7 @@ body {
 .card_main {
 	grid-area: card_main;
 	width: 100%;
-	justify-content: end;
+	/* justify-content: end; */
 	align-items: flex-start;
 	flex-direction: row;
 }
@@ -354,6 +354,34 @@ textarea {
 
 .comment_edit .vote_counter {
 	grid-area: vote_counter;
+}
+
+.btn_reset {
+	padding: 0.2rem 0.5rem;
+	color: white;
+	position: fixed;
+	background-color: var(--soft-red-color);
+	top: 0;
+	left: 0;
+	cursor: pointer;
+	border-bottom-right-radius: 0.5rem;
+}
+
+.btn_reset:active {
+	transform: scale(1.1);
+}
+
+/* ReplyTO */
+.replyingTo {
+	color: var(--moderate-blue-color);
+	font-weight: var(--font-weight-medium);
+}
+
+.replyingTo::before {
+	content: "@";
+}
+.replyingTo::after {
+	content: " ";
 }
 
 @media screen and (min-width: 768px) {

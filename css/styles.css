@@ -31,7 +31,7 @@
 body {
 	font-family: var(--font-family);
 	font-size: var(--normal-font-size);
-	background-color: var(--light-grayish-color);
+	background-color: var(--very-light-gray-color);
 	margin: 0 auto;
 	position: relative;
 }
@@ -251,7 +251,7 @@ body {
 /* COMMENT REPLIES */
 .comment_replies {
 	padding-left: 1rem;
-	border-left: 1px solid var(--moderate-blue-color);
+	border-left: 1px solid var(--light-gray-color);
 }
 
 .comment_form {

@@ -15,35 +15,29 @@ const renderComponent = async () => {
 		let commentCard = document.createElement("section");
 		commentCard.classList.add("comment");
 		commentCard.id = `comment-${item.id}`;
-		let dataComment = { item, currentUser: data.currentUser };
-		commentCard.innerHTML = commentCardComponent(dataComment);
+		let commentCardData = { item, currentUser: data.currentUser };
+		commentCard.innerHTML = commentCardComponent(commentCardData);
 		mainContainer.insertBefore(commentCard, formCommentSection);
+
 		let comment = mainContainer.querySelector(`#comment-${item.id}`);
 
-		// Render Replies Comment
-		let repliesComment = comment.querySelector(
-			`#comment-${item.id} .comment_replies`
-		);
+		//create comment reply form
+		let commentReplyForm = document.createElement("section");
+		commentReplyForm.classList.add("reply_form");
+		commentReplyForm.innerHTML = replyComentFormComponent(commentCardData);
 
-		item.replies.forEach((reply, index) => {
-			let commendRepliesCard = document.createElement("section");
-			commendRepliesCard.classList.add("comment");
-			commendRepliesCard.id = `reply-comment-${reply.id}`;
-			let repliesCommentData = { item: reply, currentUser: data.currentUser };
-			commendRepliesCard.innerHTML = commentCardComponent(repliesCommentData);
-			repliesComment.appendChild(commendRepliesCard);
-			const replyData = { comment: item, reply };
-			// handle reply comment button
-			let commentReply = repliesComment.querySelector(
-				`#reply-comment-${reply.id} `
-			);
-			handleCommentReplyAction(commentReply, replyData);
+		// Render Replies Comment form
+		let repliesComment = comment.querySelector(`.comment_replies`);
+
+		repliesComment.addEventListener("click", (e) => {
+			handleReplyCommentForm(e, commentCardData);
 		});
 
-		// handle comment button
+		// handle comment button and modal
 		let commentBtn = commentCard.querySelector(".comment_btns");
 		let modal = commentCard.querySelector(".modal_overlay");
 		modal.addEventListener("click", (e) => {
+			console.log(e.target);
 			if (e.target.name == "modal_cancel") {
 				modal.classList.toggle("hide");
 			}
@@ -53,7 +47,22 @@ const renderComponent = async () => {
 			}
 		});
 		commentBtn.addEventListener("click", (e) => {
-			handleCommentAction({ e, modal });
+			handleCommentAction({ e, modal, comment, commentCardData });
+		});
+
+		item.replies.forEach((reply, index) => {
+			let commendRepliesCard = document.createElement("section");
+			commendRepliesCard.classList.add("comment");
+			commendRepliesCard.id = `reply-comment-${reply.id}`;
+			let repliesCommentData = { item: reply, currentUser: data.currentUser };
+			commendRepliesCard.innerHTML = commentCardComponent(repliesCommentData);
+			repliesComment.appendChild(commendRepliesCard);
+			const replyData = { comment: item, reply, currentUser: data.currentUser };
+			// handle reply comment button
+			let commentReply = repliesComment.querySelector(
+				`#reply-comment-${reply.id} `
+			);
+			handleCommentReplyAction(commentReply, replyData);
 		});
 	});
 	mainContainer.appendChild(commentForm);
@@ -85,12 +94,21 @@ const handleCommentForm = (currentUser) => {
 	});
 };
 
-const handleCommentAction = ({ e, modal }) => {
+const handleCommentAction = ({ e, modal, comment, commentCardData }) => {
 	if (e.target.name === "btnDelete") {
 		modal.classList.toggle("hide");
 	}
 	if (e.target.name === "btnReply") {
-		alert("reply");
+		//create comment reply form
+		let commentReplyForm = document.createElement("section");
+		commentReplyForm.classList.add("reply_form");
+		commentReplyForm.innerHTML = replyComentFormComponent(commentCardData);
+
+		// Render Replies Comment form
+		let repliesComment = comment.querySelector(`.comment_replies`);
+
+		repliesComment.appendChild(commentReplyForm);
+		e.target.classList.toggle("hide");
 	}
 };
 
@@ -109,6 +127,84 @@ const handleCommentReplyAction = (parent, replyData) => {
 	replyCommentBtn.addEventListener("click", (e) => {
 		if (e.target.name === "btnDelete") {
 			replyModal.classList.toggle("hide");
+		} else if (e.target.name == "btnUpdate") {
+			let formUpdate = parent.querySelector(".form_edit_comment");
+			let btnUpdate = formUpdate.querySelector("button");
+			let btnAdmin = parent.querySelector(".btn_admin");
+			let allButton = btnAdmin.querySelectorAll(".btn");
+			allButton.forEach((btn) => {
+				btn.setAttribute("disabled", false);
+			});
+			let textarea = formUpdate.querySelector("textarea");
+			let commentContent = parent.querySelector(".comment_content");
+			let replyingToElement = commentContent.querySelector(".replyingTo");
+			replyingToElement.remove();
+			let content = commentContent;
+
+			textarea.innerHTML = content.innerText;
+			formUpdate.classList.toggle("hide");
+			commentContent.classList.toggle("hide");
+
+			btnUpdate.addEventListener("click", (e) => {
+				let value = textarea.value;
+				if (value == "") {
+					alert("value cannot empty!");
+					return;
+				}
+				updateReplyComment(replyData, value);
+			});
+		} else if (e.target.name == "btnReply") {
+			//create comment reply form
+			// let ReplyForm = document.createElement("section");
+			// ReplyForm.classList.add("reply_form");
+			// ReplyForm.innerHTML = replyComentFormComponent(replyData);
+			// Render Replies Comment form
+			// let repliesComment = parent.querySelector(`.comment_replies`);
+			// repliesComment.appendChild(ReplyForm);
+			// e.target.classList.toggle("hide");
+			// repliesComment.addEventListener("click", (e) => {
+			// 	if (e.target.name == "btnSendReply") {
+			// 		alert("sent sep");
+			// 	}
+			// });
 		}
 	});
+};
+
+const handleReplyCommentForm = (e, data) => {
+	if (e.target.name === "btnSendReply") {
+		console.log(data);
+		let textarea = e.target.previousElementSibling;
+		let replyValue = textarea.value;
+		if (replyValue == "") {
+			alert("field cannot empty");
+			return;
+		}
+		let commentID = data.item.id;
+		let currentUser = data.currentUser;
+		let id = generateRandomInteger(10000);
+
+		let localData = localStorage.getItem("comments");
+		let localDataJson = JSON.parse(localData);
+
+		const newCommentData = localDataJson.comments.filter((comment) => {
+			if (comment.id == commentID) {
+				let commentData = {
+					id: id,
+					content: replyValue,
+					createdAt: "2 days ago",
+					score: 0,
+					replyingTo: data.item.user.username,
+					user: currentUser,
+				};
+
+				comment.replies.push(commentData);
+				return comment;
+			} else return comment;
+		});
+		localDataJson.comments = newCommentData;
+		localStorage.removeItem("comments");
+		localStorage.setItem("comments", JSON.stringify(localDataJson));
+		location.reload();
+	}
 };

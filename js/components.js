@@ -26,14 +26,14 @@ const commentCardComponent = ({ item, currentUser }) => {
 						<p class="comment_content">
 						${isReplyingTo}${item.content}
 						</p>
-						<form name="form_edit_comment " class="card_main flex hide">
+						<form name="form_edit_comment " class="form_edit_comment card_main flex hide">
 							<textarea
 								name="form_edit_field"
 								id=""
 								rows="4"
 								placeholder="Add Comment . . ."
 							></textarea>
-							<button class="btn btn_contained btn_send" type="submit">
+							<button class="btn btn_contained btn_send" type="button">
 								Update
 							</button>
 						</form>
@@ -123,27 +123,25 @@ const commentFormComponent = (currentUser) => {
 
 const replyComentFormComponent = ({ item, currentUser }) => {
 	return `
-            <!-- FORM REPLY COMMENT -->
-					
+                     <!-- FORM REPLY COMMENT -->
 						<form
-							class="reply_comment_form card grid"
+							class="reply_comment_form comment_form card grid"
 							name="reply_comment_form"
 						>
 							<img
-								src="https://faces-img.xcdn.link/image-lorem-face-2974.jpg"
+						    	src="${currentUser.image.webp}"
 								alt=""
 								class="avatar"
 							/>
 							<label for="comment_field" class="hide">Comment</label>
 							<textarea
 								name="comment_field"
-								cols="30"
-								rows="5"
+								rows="3"
 								placeholder="Add a comment..."
 							></textarea>
 
 							<button
-								type="submit"
+								type="button"
 								name="btnSendReply"
 								class="btn btn_contained btn_send"
 							>

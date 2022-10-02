@@ -3,6 +3,9 @@ function generateRandomInteger(max) {
 }
 
 const resetData = () => {
+	let data = localStorage.getItem("comments");
+	console.log(JSON.parse(data));
+
 	localStorage.removeItem("comments");
 	location.reload();
 };

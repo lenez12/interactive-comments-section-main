@@ -33,9 +33,37 @@ const deleteReplyComment = (data) => {
 			return item;
 		} else return item;
 	});
+
+	console.log(newCommentData);
 	localDataJson.comments = newCommentData;
 	localStorage.removeItem("comments");
 	localStorage.setItem("comments", JSON.stringify(localDataJson));
 	location.reload();
-	console.log(commentData);
+};
+
+const updateReplyComment = (data, value) => {
+	let commentID = data.comment.id;
+	let repledID = data.reply.id;
+
+	let localData = localStorage.getItem("comments");
+	let localDataJson = JSON.parse(localData);
+	let newCommentData = localDataJson.comments.map((item) => {
+		if (item.id == commentID) {
+			let newreply = item.replies.filter((rep) => {
+				if (rep.id == repledID) {
+					console.log(rep);
+					rep.content = value;
+					return rep;
+				} else return rep;
+			});
+			item.replies = newreply;
+			return item;
+		} else return item;
+	});
+
+	console.log(newCommentData);
+	localDataJson.comments = newCommentData;
+	localStorage.removeItem("comments");
+	localStorage.setItem("comments", JSON.stringify(localDataJson));
+	location.reload();
 };

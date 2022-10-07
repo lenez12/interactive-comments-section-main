@@ -17,19 +17,18 @@ const commentCardComponent = ({ item, currentUser }) => {
 							class="avatar"
 						/>
 						<div class="header_text flex">
-							<h1 class="header_title mr-0">${item.user.username}</h1>
+							<h2 class="header_title mr-0">${item.user.username}</h2>
 							${isCurrentUser}
-							<h2 class="header_subtitle">${item.createdAt}</h2>
+							<h3 class="header_subtitle">${item.createdAt}</h3>
 						</div>
 					</header>
-					<main class="card_main flex">
+					<div class="card_main flex">
 						<p class="comment_content">
 						${isReplyingTo}${item.content}
 						</p>
 						<form name="form_edit_comment " class="form_edit_comment card_main flex hide">
 							<textarea
 								name="form_edit_field"
-								id=""
 								rows="4"
 								placeholder="Add Comment . . ."
 							></textarea>
@@ -37,7 +36,7 @@ const commentCardComponent = ({ item, currentUser }) => {
 								Update
 							</button>
 						</form>
-					</main>
+					</div>
 					<div class="vote_counter">
 						<div class="counter flex">
 							<button class="btn info" type="button" name="plusBtn">+</button>

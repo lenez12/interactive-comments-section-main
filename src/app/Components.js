@@ -150,3 +150,9 @@ const replyComentFormComponent = ({ item, currentUser }) => {
 					
     `;
 };
+
+module.exports = {
+	commentCardComponent,
+	commentFormComponent,
+	replyComentFormComponent,
+};

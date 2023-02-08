@@ -67,3 +67,10 @@ const updateReplyComment = (data, value) => {
 	localStorage.setItem("comments", JSON.stringify(localDataJson));
 	location.reload();
 };
+
+module.exports = {
+	deleteComment,
+	deleteReplyComment,
+	updateReplyComment,
+	saveComment,
+};

@@ -17,3 +17,8 @@ const getDataFromJson = async (path) => {
 		throw new Error("Error when fetch data . . .");
 	}
 };
+
+module.exports = {
+	getCommentData,
+	getDataFromJson,
+};

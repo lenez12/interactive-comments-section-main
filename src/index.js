@@ -1,3 +1,17 @@
+const {
+	commentCardComponent,
+	commentFormComponent,
+	replyComentFormComponent,
+} = require("./app/Components");
+const {
+	deleteComment,
+	deleteReplyComment,
+	updateReplyComment,
+	saveComment,
+} = require("./app/Controller");
+const { getCommentData } = require("./app/Data");
+const { generateRandomInteger } = require("./app/Utils");
+
 document.addEventListener("DOMContentLoaded", async () => {
 	renderComponent();
 });
@@ -154,19 +168,6 @@ const handleCommentReplyAction = (parent, replyData) => {
 				updateReplyComment(replyData, value);
 			});
 		} else if (e.target.name == "btnReply") {
-			//create comment reply form
-			// let ReplyForm = document.createElement("section");
-			// ReplyForm.classList.add("reply_form");
-			// ReplyForm.innerHTML = replyComentFormComponent(replyData);
-			// Render Replies Comment form
-			// let repliesComment = parent.querySelector(`.comment_replies`);
-			// repliesComment.appendChild(ReplyForm);
-			// e.target.classList.toggle("hide");
-			// repliesComment.addEventListener("click", (e) => {
-			// 	if (e.target.name == "btnSendReply") {
-			// 		alert("sent sep");
-			// 	}
-			// });
 		}
 	});
 };
@@ -207,4 +208,11 @@ const handleReplyCommentForm = (e, data) => {
 		localStorage.setItem("comments", JSON.stringify(localDataJson));
 		location.reload();
 	}
+};
+
+module.exports = {
+	handleCommentForm,
+	handleCommentAction,
+	handleCommentReplyAction,
+	handleReplyCommentForm,
 };

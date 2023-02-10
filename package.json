@@ -10,7 +10,8 @@
   },
   "devDependencies": {},
   "scripts": {
-   "build":"webpack"
+   "build":"webpack",
+   "watch":"webpack --watch"
   },
   "repository": {
     "type": "git",
